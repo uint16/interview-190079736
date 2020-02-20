@@ -38,7 +38,9 @@ public abstract class CalculationEngine {
                 .divide(sumOfQuantities)).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public BigDecimal profitToEarningsRatio(final Stock stock, final BigDecimal price){
+    public BigDecimal profitToEarningsRatio(final String ticker, final BigDecimal price){
+        var stock = dataManager.getDataForStock(ticker);
+        if(stock == null) return BigDecimal.ZERO;
         var dividends = stock.getLastDividend();
         return price.divide(dividends);
     }

@@ -37,6 +37,11 @@ public class StockMarketController {
         return BigDecimal.ZERO;
     }
 
+    @GetMapping(value = "/profitToEarningRatio")
+    public BigDecimal getProfitToEarningRatio(@RequestParam String stockSymbol,  @RequestParam(required = true) BigDecimal price){
+        return commonStockCalculationEngine.profitToEarningsRatio(stockSymbol, price);
+    }
+
     @GetMapping(value = "/trade")
     public HttpStatus tradeStock(@RequestParam String stockSymbol, @RequestParam TradeDirection tradeDirection, @RequestParam(required = true) BigDecimal price, @RequestParam BigDecimal quantity){
         tradeService.record(stockSymbol,quantity,price,tradeDirection);

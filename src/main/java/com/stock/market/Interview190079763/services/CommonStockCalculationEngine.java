@@ -14,10 +14,14 @@ public class CommonStockCalculationEngine extends CalculationEngine {
 
     @Override
     public BigDecimal dividendYield(String stockSymbol, BigDecimal price) {
+        if(price == BigDecimal.ZERO) {
+            return BigDecimal.ZERO;
+        }
         var stock = dataManager.getDataForStock(stockSymbol);
         if(stock == null ) {
             return BigDecimal.ZERO;
         }
+
         return stock.getLastDividend().divide(price, ApplicationConstants.PRECISION, RoundingMode.CEILING);
     }
 }

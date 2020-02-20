@@ -35,6 +35,9 @@ public abstract class CalculationEngine {
         var transactions = this.dataManager.getTransactionsForStock(ticker);
         var sumOfQuantities = transactions.stream().map(Trade::getQuantity).reduce(BigDecimal.ZERO, BigDecimal::add);
 
+        if(sumOfQuantities == BigDecimal.ZERO) {
+            return BigDecimal.ZERO;
+        }
         return transactions.stream().map(transaction -> transaction.getPrice()
                 .multiply(transaction.getQuantity())
                 .divide(sumOfQuantities)).reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -44,6 +47,9 @@ public abstract class CalculationEngine {
         var stock = dataManager.getDataForStock(ticker);
         if(stock == null) return BigDecimal.ZERO;
         var dividends = stock.getLastDividend();
+        if(dividends == BigDecimal.ZERO) {
+            return BigDecimal.ZERO;
+        }
         return price.divide(dividends, ApplicationConstants.PRECISION, RoundingMode.CEILING);
     }
 

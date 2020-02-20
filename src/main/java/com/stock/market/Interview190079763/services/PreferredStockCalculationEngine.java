@@ -14,7 +14,10 @@ public class PreferredStockCalculationEngine extends CalculationEngine {
 
     @Override
     public BigDecimal dividendYield(String stockSymbol, BigDecimal price) {
-        var stock = dataManager.getData().get(stockSymbol);
+        var stock = dataManager.getDataForStock(stockSymbol);
+        if(stock == null){
+            return BigDecimal.ZERO;
+        }
         return (stock.getFixedDividend().multiply(stock.getParValue())).divide(stock.getPrice().multiply(BigDecimal.valueOf(100)), ApplicationConstants.PRECISION, RoundingMode.CEILING);
     }
 }

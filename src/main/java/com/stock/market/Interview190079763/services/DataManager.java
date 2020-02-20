@@ -33,8 +33,8 @@ public class DataManager {
         transactions.add(trade);
     }
 
-    public Map<String, Stock> getData() {
-        return data;
+    public Stock getDataForStock(String ticker){
+        return this.data.getOrDefault(ticker, null);
     }
 
     public List<Trade> getAllTransactions(){

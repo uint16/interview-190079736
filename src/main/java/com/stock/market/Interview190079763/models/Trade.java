@@ -14,6 +14,7 @@ public class Trade {
     //TODO: factor in UTC
     private LocalDateTime timeStamp;
     private TradeDirection tradeDirection;
+    private Stock tradedStock;
 
     public BigDecimal getQuantity() {
         return quantity;
@@ -45,5 +46,13 @@ public class Trade {
 
     public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
+    }
+
+    public Stock getTradedStock() {
+        return tradedStock;
+    }
+
+    public void setTradedStock(Stock tradedStock) {
+        this.tradedStock = tradedStock;
     }
 }

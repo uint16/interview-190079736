@@ -7,10 +7,12 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 @Scope(value = "singleton")
@@ -35,7 +37,18 @@ public class DataManager {
         return data;
     }
 
-    public List<Trade> getTransactions(){
+    public List<Trade> getAllTransactions(){
         return this.transactions;
+    }
+
+    public List<Trade> getTransactionsForStock(String ticker){
+        var currentTime = LocalDateTime.now();
+        var previousTime = currentTime.minusMinutes(15);
+
+        return this.transactions.stream()
+                .filter(transaction -> transaction.getTradedStock().getSymbol().equals(ticker) &&
+                        transaction.getTimeStamp().isBefore(currentTime) &&
+                        transaction.getTimeStamp().isAfter(previousTime))
+                .collect(Collectors.toList());
     }
 }

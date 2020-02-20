@@ -15,6 +15,15 @@ public class Stock {
     private BigDecimal parValue;
     private BigDecimal price;
 
+    public Stock(String symbol, BigDecimal lastDividend, BigDecimal fixedDividend, BigDecimal price, BigDecimal parValue, StockType stockType){
+        this.symbol = symbol;
+        this.lastDividend = lastDividend;
+        this.fixedDividend = fixedDividend;
+        this.price = price;
+        this.stockType = stockType;
+        this.parValue = parValue;
+    }
+
     public String getSymbol() {
         return symbol;
     }

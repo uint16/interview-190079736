@@ -1,8 +1,7 @@
 package com.stock.market.Interview190079763.services;
 
-import com.stock.market.Interview190079763.models.Stock;
-
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class PreferredStockCalculationEngine extends CalculationEngine {
     public PreferredStockCalculationEngine(DataManager dataManager) {
@@ -10,7 +9,8 @@ public class PreferredStockCalculationEngine extends CalculationEngine {
     }
 
     @Override
-    public BigDecimal dividendYield(Stock stock, BigDecimal price) {
-        return (stock.getFixedDividend().multiply(stock.getParValue())).divide(stock.getPrice().multiply(BigDecimal.valueOf(100)));
+    public BigDecimal dividendYield(String stockSymbol, BigDecimal price) {
+        var stock = dataManager.getData().get(stockSymbol);
+        return (stock.getFixedDividend().multiply(stock.getParValue())).divide(stock.getPrice().multiply(BigDecimal.valueOf(100)), RoundingMode.HALF_UP);
     }
 }

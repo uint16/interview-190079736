@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  */
 public abstract class CalculationEngine {
 
-    private DataManager dataManager;
+    protected DataManager dataManager;
 
     @Autowired
     public CalculationEngine(DataManager dataManager){
@@ -58,6 +58,6 @@ public abstract class CalculationEngine {
         return price.divide(dividends);
     }
 
-    public abstract BigDecimal dividendYield(final Stock stock, final BigDecimal price);
+    public abstract BigDecimal dividendYield(final String stockSymbol, final BigDecimal price);
     
 }

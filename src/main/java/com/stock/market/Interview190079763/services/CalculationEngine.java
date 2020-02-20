@@ -1,10 +1,12 @@
 package com.stock.market.Interview190079763.services;
 
+import com.stock.market.Interview190079763.config.ApplicationConstants;
 import com.stock.market.Interview190079763.models.Stock;
 import com.stock.market.Interview190079763.models.Trade;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * CalculationEngine
@@ -42,7 +44,7 @@ public abstract class CalculationEngine {
         var stock = dataManager.getDataForStock(ticker);
         if(stock == null) return BigDecimal.ZERO;
         var dividends = stock.getLastDividend();
-        return price.divide(dividends);
+        return price.divide(dividends, ApplicationConstants.PRECISION, RoundingMode.CEILING);
     }
 
     public abstract BigDecimal dividendYield(final String stockSymbol, final BigDecimal price);

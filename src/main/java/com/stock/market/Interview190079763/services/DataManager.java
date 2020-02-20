@@ -26,7 +26,11 @@ public class DataManager {
         this.transactions = new ArrayList<>();
 
         //initial data
-        data.put("TEA", new Stock("TEA", BigDecimal.valueOf(8), BigDecimal.valueOf(2),BigDecimal.valueOf(25), BigDecimal.valueOf(30), StockType.COMMON));
+        data.put("TEA", new Stock("TEA", BigDecimal.valueOf(0), null, null, BigDecimal.valueOf(100),  StockType.COMMON));
+        data.put("POP", new Stock("POP", BigDecimal.valueOf(8), null, null, BigDecimal.valueOf(100), StockType.COMMON));
+        data.put("ALE", new Stock("ALE", BigDecimal.valueOf(23), null, null, BigDecimal.valueOf(60), StockType.COMMON));
+        data.put("GIN", new Stock("GIN", BigDecimal.valueOf(8), BigDecimal.valueOf(2),null, BigDecimal.valueOf(100),  StockType.PREFERRED));
+        data.put("JOE", new Stock("JOE", BigDecimal.valueOf(13), null, null, BigDecimal.valueOf(250), StockType.COMMON));
     }
 
     public void addTrade(Trade trade){

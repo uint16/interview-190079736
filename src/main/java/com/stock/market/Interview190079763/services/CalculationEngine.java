@@ -21,8 +21,15 @@ public abstract class CalculationEngine {
         this.dataManager = dataManager;
     }
 
-    public void geometricMean(){
+    public BigDecimal geometricMean(){
 
+        var transactions = this.dataManager.getTransactions();
+        var count = transactions.size();
+
+        var product = transactions.stream().map(Trade::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::multiply);
+
+        return BigDecimal.valueOf(Math.pow(product.doubleValue(), 1/count));
     }
 
     public BigDecimal volumeWeighedStockPrice(String ticker){

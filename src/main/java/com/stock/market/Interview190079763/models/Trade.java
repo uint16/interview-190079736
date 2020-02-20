@@ -1,6 +1,7 @@
 package com.stock.market.Interview190079763.models;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -10,7 +11,8 @@ public class Trade {
 
     private BigDecimal quantity;
     private BigDecimal price;
-    private Date timeStamp;
+    //TODO: factor in UTC
+    private LocalDateTime timeStamp;
     private TradeDirection tradeDirection;
 
     public BigDecimal getQuantity() {
@@ -25,11 +27,11 @@ public class Trade {
         this.tradeDirection = tradeDirection;
     }
 
-    public Date getTimeStamp() {
+    public LocalDateTime getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(Date timeStamp) {
+    public void setTimeStamp(LocalDateTime timeStamp) {
         this.timeStamp = timeStamp;
     }
 

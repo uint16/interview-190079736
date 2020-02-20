@@ -35,10 +35,6 @@ public class DataManager {
         return data;
     }
 
-    public void setData(Map<String, Stock> data) {
-        this.data = data;
-    }
-
     public List<Trade> getTransactions(){
         return this.transactions;
     }

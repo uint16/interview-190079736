@@ -1,11 +1,14 @@
 package com.stock.market.Interview190079763.controllers;
 
 import com.stock.market.Interview190079763.models.StockType;
+import com.stock.market.Interview190079763.models.TradeDirection;
 import com.stock.market.Interview190079763.services.CommonStockCalculationEngine;
 import com.stock.market.Interview190079763.services.PreferredStockCalculationEngine;
+import com.stock.market.Interview190079763.services.TradeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -19,9 +22,11 @@ public class StockMarketController {
     private CommonStockCalculationEngine commonStockCalculationEngine;
     @Autowired
     private PreferredStockCalculationEngine preferredStockCalculationEngine;
+    @Autowired
+    private TradeService tradeService;
 
-    @GetMapping(value = "/dividendYield/{stockType}/{stockSymbol}")
-    public BigDecimal getDividendYield(@PathVariable String stockSymbol, @PathVariable StockType stockType, @RequestParam(required = true) BigDecimal price){
+    @GetMapping(value = "/dividendYield/{stockSymbol}")
+    public BigDecimal getDividendYield(@PathVariable String stockSymbol, @RequestParam StockType stockType, @RequestParam(required = true) BigDecimal price){
         logger.info("Requested Dividend Yield for Stock " + stockSymbol + " for price " + price);
         if(stockType == StockType.COMMON){
             return commonStockCalculationEngine.dividendYield(stockSymbol, price);
@@ -30,5 +35,12 @@ public class StockMarketController {
         }
 
         return BigDecimal.ZERO;
+    }
+
+    @GetMapping(value = "/trade")
+    public HttpStatus tradeStock(@RequestParam String stockSymbol, @RequestParam TradeDirection tradeDirection, @RequestParam(required = true) BigDecimal price, @RequestParam BigDecimal quantity){
+        tradeService.record(stockSymbol,quantity,price,tradeDirection);
+
+        return HttpStatus.OK;
     }
 }

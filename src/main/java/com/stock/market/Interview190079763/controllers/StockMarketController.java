@@ -17,6 +17,7 @@ public class StockMarketController {
     private static Logger logger = LoggerFactory.getLogger(StockMarketController.class);
     @Autowired
     private CommonStockCalculationEngine commonStockCalculationEngine;
+    @Autowired
     private PreferredStockCalculationEngine preferredStockCalculationEngine;
 
     @GetMapping(value = "/dividendYield/{stockType}/{stockSymbol}")

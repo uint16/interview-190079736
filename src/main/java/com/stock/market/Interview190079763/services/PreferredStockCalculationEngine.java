@@ -1,10 +1,12 @@
 package com.stock.market.Interview190079763.services;
 
 import com.stock.market.Interview190079763.config.ApplicationConstants;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+@Component
 public class PreferredStockCalculationEngine extends CalculationEngine {
     public PreferredStockCalculationEngine(DataManager dataManager) {
         super(dataManager);

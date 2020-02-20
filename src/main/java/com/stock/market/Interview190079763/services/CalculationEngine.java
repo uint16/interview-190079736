@@ -38,19 +38,19 @@ public abstract class CalculationEngine {
         var allTransactions = this.dataManager.getTransactions();
         var currentTime = LocalDateTime.now();
         var previousTime = currentTime.minusMinutes(15);
-        var transactions = allTransactions.stream()
+
+        return allTransactions.stream()
                 .filter(transaction -> transaction.getTradedStock().getSymbol().equals(ticker) &&
                         transaction.getTimeStamp().isBefore(currentTime) &&
                         transaction.getTimeStamp().isAfter(previousTime))
                 .collect(Collectors.toList());
-
-        return transactions;
     }
 
-    public void pAndERatio(final Stock stock, final BigDecimal price){
-
+    public BigDecimal profitToEarningsRatio(final Stock stock, final BigDecimal price){
+        var dividends = stock.getLastDividend();
+        return price.divide(dividends);
     }
 
-    public abstract void dividendYield(final Stock stock, final BigDecimal price);
+    public abstract BigDecimal dividendYield(final Stock stock, final BigDecimal price);
     
 }

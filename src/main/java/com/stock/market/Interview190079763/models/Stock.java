@@ -10,8 +10,8 @@ public class Stock {
 
     private String symbol;
     private StockType stockType;
-    private int lastDividend;
-    private double fixedDividend;
+    private BigDecimal lastDividend;
+    private BigDecimal fixedDividend;
     private BigDecimal parValue;
     private BigDecimal price;
 
@@ -19,19 +19,19 @@ public class Stock {
         return symbol;
     }
 
-    public int getLastDividend() {
+    public BigDecimal getLastDividend() {
         return lastDividend;
     }
 
-    public void setLastDividend(int lastDividend) {
+    public void setLastDividend(BigDecimal lastDividend) {
         this.lastDividend = lastDividend;
     }
 
-    public double getFixedDividend() {
+    public BigDecimal getFixedDividend() {
         return fixedDividend;
     }
 
-    public void setFixedDividend(double fixedDividend) {
+    public void setFixedDividend(BigDecimal fixedDividend) {
         this.fixedDividend = fixedDividend;
     }
 

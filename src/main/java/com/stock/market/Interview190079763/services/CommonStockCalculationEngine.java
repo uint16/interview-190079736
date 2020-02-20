@@ -10,7 +10,7 @@ public class CommonStockCalculationEngine extends CalculationEngine {
     }
 
     @Override
-    public void dividendYield(Stock stock, BigDecimal price) {
-
+    public BigDecimal dividendYield(Stock stock, BigDecimal price) {
+        return stock.getLastDividend().divide(price);
     }
 }

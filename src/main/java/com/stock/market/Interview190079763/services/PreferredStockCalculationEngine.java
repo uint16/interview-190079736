@@ -10,7 +10,7 @@ public class PreferredStockCalculationEngine extends CalculationEngine {
     }
 
     @Override
-    public void dividendYield(Stock stock, BigDecimal price) {
-
+    public BigDecimal dividendYield(Stock stock, BigDecimal price) {
+        return (stock.getFixedDividend().multiply(stock.getParValue())).divide(stock.getPrice().multiply(BigDecimal.valueOf(100)));
     }
 }

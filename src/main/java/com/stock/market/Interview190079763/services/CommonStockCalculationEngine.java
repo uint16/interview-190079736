@@ -1,7 +1,6 @@
 package com.stock.market.Interview190079763.services;
 
-import com.stock.market.Interview190079763.models.Stock;
-import org.springframework.context.annotation.Bean;
+import com.stock.market.Interview190079763.config.ApplicationConstants;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -16,6 +15,6 @@ public class CommonStockCalculationEngine extends CalculationEngine {
     @Override
     public BigDecimal dividendYield(String stockSymbol, BigDecimal price) {
         var stock = dataManager.getData().get(stockSymbol);
-        return stock.getLastDividend().divide(price, RoundingMode.HALF_UP);
+        return stock.getLastDividend().divide(price, ApplicationConstants.PRECISION, RoundingMode.CEILING);
     }
 }

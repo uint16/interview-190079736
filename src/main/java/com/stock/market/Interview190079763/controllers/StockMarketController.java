@@ -40,29 +40,26 @@ public class StockMarketController {
     }
 
     @GetMapping(value = "/profitToEarningRatio")
-    public BigDecimal getProfitToEarningRatio(@RequestParam String stockSymbol, @RequestParam(required = true) BigDecimal price) {
+    public BigDecimal getProfitToEarningRatio(@RequestParam String ticker, @RequestParam(required = true) BigDecimal price) {
 
-        return commonStockCalculationEngine.profitToEarningsRatio(stockSymbol, price);
+        return commonStockCalculationEngine.profitToEarningsRatio(ticker, price);
     }
 
     @GetMapping(value = "/trade")
-    public HttpStatus tradeStock(@RequestParam String stockSymbol, @RequestParam TradeDirection tradeDirection, @RequestParam(required = true) BigDecimal price, @RequestParam BigDecimal quantity) {
-        tradeService.record(stockSymbol, quantity, price, tradeDirection);
+    public HttpStatus tradeStock(@RequestParam String ticker, @RequestParam TradeDirection tradeDirection, @RequestParam(required = true) BigDecimal price, @RequestParam BigDecimal quantity) {
+        tradeService.record(ticker, quantity, price, tradeDirection);
 
         return HttpStatus.OK;
     }
 
     @GetMapping(value = "/geometricMean")
-    public HttpStatus getGeometricMean(@RequestParam String stockSymbol, @RequestParam TradeDirection tradeDirection, @RequestParam(required = true) BigDecimal price, @RequestParam BigDecimal quantity) {
-        tradeService.record(stockSymbol, quantity, price, tradeDirection);
+    public BigDecimal getGeometricMean() {
+        return commonStockCalculationEngine.geometricMean();
 
-        return HttpStatus.OK;
     }
 
     @GetMapping(value = "/volumeWeightedStockPrice")
-    public HttpStatus getVolumeWeightedStockPrice(@RequestParam String stockSymbol, @RequestParam TradeDirection tradeDirection, @RequestParam(required = true) BigDecimal price, @RequestParam BigDecimal quantity) {
-        tradeService.record(stockSymbol, quantity, price, tradeDirection);
-
-        return HttpStatus.OK;
+    public BigDecimal getVolumeWeightedStockPrice(@RequestParam String ticker) {
+        return commonStockCalculationEngine.volumeWeighedStockPrice(ticker);
     }
 }

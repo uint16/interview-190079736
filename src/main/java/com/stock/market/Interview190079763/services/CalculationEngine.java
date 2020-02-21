@@ -25,11 +25,15 @@ public abstract class CalculationEngine {
 
         var transactions = this.dataManager.getAllTransactions();
         var count = transactions.size();
+        if(count == 0){
+            return BigDecimal.ZERO;
+        }
 
         var product = transactions.stream().map(Trade::getPrice)
-                .reduce(BigDecimal.ZERO, BigDecimal::multiply);
+                .reduce(BigDecimal.ONE, BigDecimal::multiply);
 
-        return BigDecimal.valueOf(Math.pow(product.doubleValue(), 1 / count));
+        var geometricMean = Math.pow(product.doubleValue(), (1.0/count));
+        return BigDecimal.valueOf(geometricMean);
     }
 
     public BigDecimal volumeWeighedStockPrice(String ticker) {

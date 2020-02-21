@@ -1,5 +1,6 @@
 package com.stock.market.Interview190079763.services;
 
+import com.stock.market.Interview190079763.data.DataManager;
 import com.stock.market.Interview190079763.models.Trade;
 import com.stock.market.Interview190079763.models.TradeDirection;
 import org.springframework.beans.factory.annotation.Autowired;

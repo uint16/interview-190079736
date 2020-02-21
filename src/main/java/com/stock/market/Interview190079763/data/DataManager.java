@@ -1,4 +1,4 @@
-package com.stock.market.Interview190079763.services;
+package com.stock.market.Interview190079763.data;
 
 import com.stock.market.Interview190079763.models.Stock;
 import com.stock.market.Interview190079763.models.StockType;

@@ -1,5 +1,6 @@
 package com.stock.market.Interview190079763.controllers;
 
+import com.stock.market.Interview190079763.exception.StockMarketException;
 import com.stock.market.Interview190079763.models.StockType;
 import com.stock.market.Interview190079763.models.TradeDirection;
 import com.stock.market.Interview190079763.services.CommonStockCalculationEngine;
@@ -26,7 +27,7 @@ public class StockMarketController {
     private TradeService tradeService;
 
     @GetMapping(value = "/dividendYield/{stockSymbol}")
-    public BigDecimal getDividendYield(@PathVariable String stockSymbol, @RequestParam StockType stockType, @RequestParam(required = true) double price){
+    public BigDecimal getDividendYield(@PathVariable String stockSymbol, @RequestParam StockType stockType, @RequestParam(required = true) double price) throws StockMarketException {
         logger.info("Requested Dividend Yield for Stock " + stockSymbol + " for price " + price);
         if(stockType == StockType.COMMON){
             return commonStockCalculationEngine.dividendYield(stockSymbol, BigDecimal.valueOf(price));
@@ -45,6 +46,20 @@ public class StockMarketController {
 
     @GetMapping(value = "/trade")
     public HttpStatus tradeStock(@RequestParam String stockSymbol, @RequestParam TradeDirection tradeDirection, @RequestParam(required = true) BigDecimal price, @RequestParam BigDecimal quantity){
+        tradeService.record(stockSymbol,quantity,price,tradeDirection);
+
+        return HttpStatus.OK;
+    }
+
+    @GetMapping(value = "/geometricMean")
+    public HttpStatus getGeometricMean(@RequestParam String stockSymbol, @RequestParam TradeDirection tradeDirection, @RequestParam(required = true) BigDecimal price, @RequestParam BigDecimal quantity){
+        tradeService.record(stockSymbol,quantity,price,tradeDirection);
+
+        return HttpStatus.OK;
+    }
+
+    @GetMapping(value = "/volumeWeightedStockPrice")
+    public HttpStatus getVolumeWeightedStockPrice(@RequestParam String stockSymbol, @RequestParam TradeDirection tradeDirection, @RequestParam(required = true) BigDecimal price, @RequestParam BigDecimal quantity){
         tradeService.record(stockSymbol,quantity,price,tradeDirection);
 
         return HttpStatus.OK;

@@ -14,7 +14,7 @@ public class CommonStockCalculationEngine extends CalculationEngine {
 
     @Override
     public BigDecimal dividendYield(String stockSymbol, BigDecimal price) {
-        if(price == BigDecimal.ZERO) {
+        if(price.compareTo(BigDecimal.ZERO) == 0) {
             return BigDecimal.ZERO;
         }
         var stock = dataManager.getDataForStock(stockSymbol);

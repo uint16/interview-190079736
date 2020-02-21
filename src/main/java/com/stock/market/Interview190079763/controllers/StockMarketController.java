@@ -5,6 +5,7 @@ import com.stock.market.Interview190079763.models.TradeDirection;
 import com.stock.market.Interview190079763.services.CommonStockCalculationEngine;
 import com.stock.market.Interview190079763.services.PreferredStockCalculationEngine;
 import com.stock.market.Interview190079763.services.TradeService;
+import jdk.jfr.ContentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,12 @@ public class StockMarketController {
     private TradeService tradeService;
 
     @GetMapping(value = "/dividendYield/{stockSymbol}")
-    public BigDecimal getDividendYield(@PathVariable String stockSymbol, @RequestParam StockType stockType, @RequestParam(required = true) BigDecimal price){
+    public BigDecimal getDividendYield(@PathVariable String stockSymbol, @RequestParam StockType stockType, @RequestParam(required = true) double price){
         logger.info("Requested Dividend Yield for Stock " + stockSymbol + " for price " + price);
         if(stockType == StockType.COMMON){
-            return commonStockCalculationEngine.dividendYield(stockSymbol, price);
+            return commonStockCalculationEngine.dividendYield(stockSymbol, BigDecimal.valueOf(price));
         } else if(stockType == StockType.PREFERRED){
-            return preferredStockCalculationEngine.dividendYield(stockSymbol, price);
+            return preferredStockCalculationEngine.dividendYield(stockSymbol, BigDecimal.valueOf(price));
         }
 
         return BigDecimal.ZERO;
@@ -39,6 +40,7 @@ public class StockMarketController {
 
     @GetMapping(value = "/profitToEarningRatio")
     public BigDecimal getProfitToEarningRatio(@RequestParam String stockSymbol,  @RequestParam(required = true) BigDecimal price){
+
         return commonStockCalculationEngine.profitToEarningsRatio(stockSymbol, price);
     }
 

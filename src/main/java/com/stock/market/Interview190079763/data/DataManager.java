@@ -50,7 +50,7 @@ public class DataManager {
         var previousTime = currentTime.minusMinutes(15);
 
         return this.transactions.stream()
-                .filter(transaction -> transaction.getTradedStock().getTicker().equals(ticker) &&
+                .filter(transaction -> transaction.getTicker().equals(ticker) &&
                         transaction.getTimeStamp().isBefore(currentTime) &&
                         transaction.getTimeStamp().isAfter(previousTime))
                 .collect(Collectors.toList());

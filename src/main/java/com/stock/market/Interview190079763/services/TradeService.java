@@ -21,7 +21,7 @@ public class TradeService {
         tradeRecord.setQuantity(quantity);
         tradeRecord.setTradeDirection(direction);
         tradeRecord.setTimeStamp(LocalDateTime.now());
-
+        tradeRecord.setTicker(ticker);
         dataManager.addTrade(tradeRecord);
 
     }

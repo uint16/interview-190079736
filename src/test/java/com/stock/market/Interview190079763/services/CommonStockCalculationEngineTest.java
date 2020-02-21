@@ -27,8 +27,7 @@ public class CommonStockCalculationEngineTest {
 
     @Before
     public void init() {
-        Stock stock = new Stock("TEST", BigDecimal.valueOf(8),
-                BigDecimal.valueOf(2), BigDecimal.valueOf(25), BigDecimal.valueOf(30), StockType.COMMON);
+        Stock stock = new Stock.Builder("TEST").ofType(StockType.COMMON).lastDividend(BigDecimal.valueOf(8)).fixedDividend(null).price(null).parValue(BigDecimal.valueOf(100)).build();
         when(dataManager.getDataForStock("TEST")).thenReturn(stock);
     }
 

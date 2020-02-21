@@ -3,6 +3,7 @@ package com.stock.market.Interview190079763.services;
 import com.stock.market.Interview190079763.config.ApplicationConstants;
 import com.stock.market.Interview190079763.data.DataManager;
 import com.stock.market.Interview190079763.exception.StockMarketException;
+import com.stock.market.Interview190079763.models.StockType;
 import com.stock.market.Interview190079763.util.ValidationUtil;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +22,11 @@ public class PreferredStockCalculationEngine extends CalculationEngine {
         if (stock == null || !ValidationUtil.isBigDecimalValid(price)) {
             throw new StockMarketException("Invalid stock/price");
         }
-        return (stock.getFixedDividend().multiply(stock.getParValue())).divide(stock.getPrice().multiply(BigDecimal.valueOf(100)), ApplicationConstants.PRECISION, RoundingMode.CEILING);
+
+        if(stock.getStockType() != StockType.PREFERRED){
+            throw new StockMarketException("Invalid stock/price");
+        }
+
+        return (stock.getFixedDividend().multiply(stock.getParValue())).divide(price.multiply(BigDecimal.valueOf(100)), ApplicationConstants.PRECISION, RoundingMode.CEILING);
     }
 }

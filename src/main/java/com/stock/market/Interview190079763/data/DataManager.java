@@ -26,11 +26,11 @@ public class DataManager {
         this.transactions = new ArrayList<>();
 
         //initial data
-        data.put("TEA", new Stock("TEA", BigDecimal.valueOf(0), null, null, BigDecimal.valueOf(100), StockType.COMMON));
-        data.put("POP", new Stock("POP", BigDecimal.valueOf(8), null, null, BigDecimal.valueOf(100), StockType.COMMON));
-        data.put("ALE", new Stock("ALE", BigDecimal.valueOf(23), null, null, BigDecimal.valueOf(60), StockType.COMMON));
-        data.put("GIN", new Stock("GIN", BigDecimal.valueOf(8), BigDecimal.valueOf(2), null, BigDecimal.valueOf(100), StockType.PREFERRED));
-        data.put("JOE", new Stock("JOE", BigDecimal.valueOf(13), null, null, BigDecimal.valueOf(250), StockType.COMMON));
+        data.put("TEA", new Stock.Builder("TEA").ofType(StockType.COMMON).lastDividend(BigDecimal.ZERO).fixedDividend(null).price(null).parValue(BigDecimal.valueOf(100)).build());
+        data.put("POP", new Stock.Builder("POP").ofType(StockType.COMMON).lastDividend(BigDecimal.valueOf(8)).fixedDividend(null).price(null).parValue(BigDecimal.valueOf(100)).build());
+        data.put("ALE", new Stock.Builder("ALE").ofType(StockType.COMMON).lastDividend(BigDecimal.valueOf(23)).fixedDividend(null).price(null).parValue(BigDecimal.valueOf(60)).build());
+        data.put("GIN", new Stock.Builder("GIN").ofType(StockType.PREFERRED).lastDividend(BigDecimal.valueOf(8)).fixedDividend(BigDecimal.valueOf(2)).price(null).parValue(BigDecimal.valueOf(100)).build());
+        data.put("JOE", new Stock.Builder("JOE").ofType(StockType.COMMON).lastDividend(BigDecimal.valueOf(13)).fixedDividend(null).price(null).parValue(BigDecimal.valueOf(250)).build());
     }
 
     public void addTrade(Trade trade) {
@@ -50,7 +50,7 @@ public class DataManager {
         var previousTime = currentTime.minusMinutes(15);
 
         return this.transactions.stream()
-                .filter(transaction -> transaction.getTradedStock().getSymbol().equals(ticker) &&
+                .filter(transaction -> transaction.getTradedStock().getTicker().equals(ticker) &&
                         transaction.getTimeStamp().isBefore(currentTime) &&
                         transaction.getTimeStamp().isAfter(previousTime))
                 .collect(Collectors.toList());

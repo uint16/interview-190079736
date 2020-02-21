@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
 
@@ -27,14 +27,13 @@ public class PreferredStockCalculationEngineTest {
 
     @Before
     public void init() {
-        Stock stock = new Stock("TEST", BigDecimal.valueOf(8),
-                BigDecimal.valueOf(2), BigDecimal.valueOf(25), BigDecimal.valueOf(30), StockType.PREFERRED);
+        Stock stock = new Stock.Builder("TEST").ofType(StockType.PREFERRED).lastDividend(BigDecimal.valueOf(8)).fixedDividend(BigDecimal.valueOf(2)).price(null).parValue(BigDecimal.valueOf(30)).build();
         when(dataManager.getDataForStock("TEST")).thenReturn(stock);
     }
 
     @Test
     public void testDividendYieldWithValid() throws StockMarketException {
-        assertEquals("0.0240", calculationEngine.dividendYield("TEST", BigDecimal.ONE).toString());
+        assertEquals("0.6000", calculationEngine.dividendYield("TEST", BigDecimal.ONE).toString());
     }
 
     @Test(expected = StockMarketException.class)
@@ -44,7 +43,7 @@ public class PreferredStockCalculationEngineTest {
 
     @Test
     public void testDividendYieldWithValidStockValidPrice() throws StockMarketException {
-        assertEquals("0.0240", calculationEngine.dividendYield("TEST", BigDecimal.TEN).toString());
+        assertEquals("0.0600", calculationEngine.dividendYield("TEST", BigDecimal.TEN).toString());
     }
 
     @Test(expected = StockMarketException.class)

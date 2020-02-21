@@ -7,28 +7,21 @@ import java.math.BigDecimal;
  */
 public class Stock {
 
-    private String symbol;
+    private String ticker;
     private StockType stockType;
     private BigDecimal lastDividend;
     private BigDecimal fixedDividend;
     private BigDecimal parValue;
     private BigDecimal price;
 
-    public Stock(String symbol, BigDecimal lastDividend, BigDecimal fixedDividend, BigDecimal price, BigDecimal parValue, StockType stockType) {
-        this.symbol = symbol;
-        this.lastDividend = lastDividend;
-        this.fixedDividend = fixedDividend;
-        this.price = price;
-        this.stockType = stockType;
-        this.parValue = parValue;
+    private Stock(){}
+
+    public String getTicker() {
+        return ticker;
     }
 
-    public String getSymbol() {
-        return symbol;
-    }
-
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
+    public void setTicker(String ticker) {
+        this.ticker = ticker;
     }
 
     public BigDecimal getLastDividend() {
@@ -69,5 +62,54 @@ public class Stock {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public static class Builder {
+
+        private String ticker;
+        private StockType stockType;
+        private BigDecimal lastDividend;
+        private BigDecimal fixedDividend;
+        private BigDecimal parValue;
+        private BigDecimal price;
+        public Builder(String ticker){
+            this.ticker = ticker;
+        }
+
+        public Builder ofType(StockType stockType){
+            this.stockType = stockType;
+            return this;
+        }
+
+        public Builder lastDividend(BigDecimal lastDividend){
+            this.lastDividend = lastDividend;
+            return this;
+        }
+
+        public Builder fixedDividend(BigDecimal fixedDividend){
+            this.fixedDividend = fixedDividend;
+            return this;
+        }
+
+        public Builder parValue(BigDecimal parValue){
+            this.parValue = parValue;
+            return this;
+        }
+
+        public Builder price(BigDecimal price){
+            this.price = price;
+            return this;
+        }
+
+        public Stock build(){
+            Stock stock = new Stock();
+            stock.parValue = this.parValue;
+            stock.ticker = this.ticker;
+            stock.stockType = this.stockType;
+            stock.lastDividend = this.lastDividend;
+            stock.fixedDividend = this.fixedDividend;
+
+            return stock;
+        }
     }
 }

@@ -7,6 +7,7 @@ import com.stock.market.Interview190079763.models.TradeDirection;
 import com.stock.market.Interview190079763.services.CommonStockCalculationEngine;
 import com.stock.market.Interview190079763.services.PreferredStockCalculationEngine;
 import com.stock.market.Interview190079763.services.TradeService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

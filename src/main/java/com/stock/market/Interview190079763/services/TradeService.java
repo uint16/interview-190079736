@@ -3,6 +3,7 @@ package com.stock.market.Interview190079763.services;
 import com.stock.market.Interview190079763.data.DataManager;
 import com.stock.market.Interview190079763.models.Trade;
 import com.stock.market.Interview190079763.models.TradeDirection;
+import com.stock.market.Interview190079763.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,14 +23,17 @@ public class TradeService {
         this.dataManager = dataManager;
     }
 
-    public void recordTrade(String ticker, BigDecimal quantity, BigDecimal price, TradeDirection direction) {
+    public boolean recordTrade(String ticker, BigDecimal quantity, BigDecimal price, TradeDirection direction) {
+        if(!ValidationUtil.isBigDecimalValid(quantity) || !ValidationUtil.isBigDecimalValid(price)){
+            return false;
+        }
             var tradeRecord = new Trade();
             tradeRecord.setPrice(price);
             tradeRecord.setQuantity(quantity);
             tradeRecord.setTradeDirection(direction);
             tradeRecord.setTimeStamp(LocalDateTime.now());
             tradeRecord.setTicker(ticker);
-            this.dataManager.addTrade(tradeRecord);
+            return this.dataManager.addTrade(tradeRecord);
     }
 
     public List<Trade> getAllTradeRecords(Optional<LocalDateTime> from, Optional<LocalDateTime> to, Optional<String> ticker){

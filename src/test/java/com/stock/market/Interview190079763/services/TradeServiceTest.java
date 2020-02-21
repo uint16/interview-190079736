@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 class TradeServiceTest {
 
 
-    private DataManager dataManager = new DataManager();
+    private DataManager dataManager = DataManager.getDataManager();
 
     private TradeService tradeService;
 
@@ -30,12 +30,17 @@ class TradeServiceTest {
     }
 
     @Test
-    void recordTrade() {
-        tradeService.recordTrade("TEST1", BigDecimal.valueOf(2), BigDecimal.valueOf(4), TradeDirection.BUY);
+    void recordValidTrade() {
+        tradeService.recordTrade("ALE", BigDecimal.valueOf(2), BigDecimal.valueOf(4), TradeDirection.BUY);
         assert (tradeService.getAllTradeRecords(null, null, null).size() == 1);
-        tradeService.recordTrade("TEST2", BigDecimal.valueOf(2), BigDecimal.valueOf(4), TradeDirection.BUY);
-        assert (tradeService.getAllTradeRecords(null, null, null).size() == 2);
     }
+
+    @Test
+    void recordInvalidTrade() {
+        tradeService.recordTrade("TEST2", BigDecimal.valueOf(2), BigDecimal.valueOf(4), TradeDirection.BUY);
+        assert (tradeService.getAllTradeRecords(null, null, null).size() == 1);
+    }
+
 
     @Test
     void getAllTradeRecords() {

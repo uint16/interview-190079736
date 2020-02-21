@@ -6,6 +6,7 @@ import com.stock.market.Interview190079763.models.Trade;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.xml.crypto.Data;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,8 +21,9 @@ public class DataManager {
 
     private Map<String, Stock> data;
     private List<Trade> transactions;
+    private static DataManager dataManager = new DataManager();
 
-    public DataManager() {
+    private DataManager() {
         this.data = new HashMap<>();
         this.transactions = new ArrayList<>();
 
@@ -33,8 +35,14 @@ public class DataManager {
         data.put("JOE", new Stock.Builder("JOE").ofType(StockType.COMMON).lastDividend(BigDecimal.valueOf(13)).fixedDividend(null).price(null).parValue(BigDecimal.valueOf(250)).build());
     }
 
-    public void addTrade(Trade trade) {
-        transactions.add(trade);
+    public boolean addTrade(Trade trade) {
+        if(data.containsKey(trade.getTicker()))
+        {
+            transactions.add(trade);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public Stock getDataForStock(String ticker) {
@@ -55,4 +63,9 @@ public class DataManager {
                         transaction.getTimeStamp().isAfter(previousTime))
                 .collect(Collectors.toList());
     }
+
+    public static DataManager getDataManager(){
+        return dataManager;
+    }
+
 }

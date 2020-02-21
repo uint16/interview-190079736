@@ -7,6 +7,6 @@ import java.math.BigDecimal;
 public class ValidationUtil {
 
     public static boolean isBigDecimalValid(BigDecimal bigDecimal) {
-        return (!BigDecimal.ZERO.equals(bigDecimal)) && (BigDecimalValidator.getInstance().isValid(bigDecimal.toString()));
+        return (!BigDecimal.ZERO.equals(bigDecimal)) && BigDecimalValidator.getInstance().minValue(bigDecimal, 0) && (BigDecimalValidator.getInstance().isValid(bigDecimal.toString()));
     }
 }

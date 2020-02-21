@@ -54,9 +54,13 @@ public class StockMarketController {
 
     @ApiOperation(value = "Perform a trade on a stock")
     @GetMapping(value = "/trade")
-    public HttpStatus tradeStock(@RequestParam String ticker, @RequestParam TradeDirection tradeDirection, @RequestParam(required = true) BigDecimal price, @RequestParam BigDecimal quantity) {
-        tradeService.recordTrade(ticker, quantity, price, tradeDirection);
-        return HttpStatus.OK;
+    public String tradeStock(@RequestParam String ticker, @RequestParam TradeDirection tradeDirection, @RequestParam(required = true) BigDecimal price, @RequestParam BigDecimal quantity) {
+        var response = tradeService.recordTrade(ticker, quantity, price, tradeDirection);
+        if(!response){
+            return "Stock doesn't exist, or invalid quantity/price";
+        }
+
+        return HttpStatus.OK.toString();
     }
 
     @ApiOperation(value = "Calculate the GBCE All Share Index using the geometric mean of prices for all stocks")

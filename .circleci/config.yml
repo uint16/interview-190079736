@@ -26,11 +26,10 @@ jobs:
             - ~/.m2
           key: circleci-interview-190079763-{{ checksum "pom.xml" }}
 
-      - run: mvn package
-
-      - store_test_results:
-          path: target/surefire-reports
+      - run: mvn test
 
       - store_artifacts:
-
-          path: target/190079763-0.0.1-SNAPSHOT.jar
+          path: target/surefire-reports
+          destination: test-reports
+      - store_test_results:
+          path: target/surefire-reports

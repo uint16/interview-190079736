@@ -28,7 +28,7 @@ public class PreferredStockCalculationEngineTest {
     @Before
     public void init() {
         Stock stock = new Stock("TEST", BigDecimal.valueOf(8),
-                BigDecimal.valueOf(2),BigDecimal.valueOf(25), BigDecimal.valueOf(30), StockType.PREFERRED);
+                BigDecimal.valueOf(2), BigDecimal.valueOf(25), BigDecimal.valueOf(30), StockType.PREFERRED);
         when(dataManager.getDataForStock("TEST")).thenReturn(stock);
     }
 
@@ -37,7 +37,7 @@ public class PreferredStockCalculationEngineTest {
         assertEquals("0.0240", calculationEngine.dividendYield("TEST", BigDecimal.ONE).toString());
     }
 
-    @Test (expected = StockMarketException.class)
+    @Test(expected = StockMarketException.class)
     public void testDividendYieldWithValidStockInvalidPrice() throws StockMarketException {
         calculationEngine.dividendYield("TEST", BigDecimal.ZERO);
     }
@@ -47,7 +47,7 @@ public class PreferredStockCalculationEngineTest {
         assertEquals("0.0240", calculationEngine.dividendYield("TEST", BigDecimal.TEN).toString());
     }
 
-    @Test (expected = StockMarketException.class)
+    @Test(expected = StockMarketException.class)
     public void testDividendYieldWithInvalidStockValidPrice() throws StockMarketException {
         calculationEngine.dividendYield("INVALID", BigDecimal.TEN);
     }

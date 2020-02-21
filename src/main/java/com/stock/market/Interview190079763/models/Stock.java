@@ -1,7 +1,6 @@
 package com.stock.market.Interview190079763.models;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * Stock
@@ -15,7 +14,7 @@ public class Stock {
     private BigDecimal parValue;
     private BigDecimal price;
 
-    public Stock(String symbol, BigDecimal lastDividend, BigDecimal fixedDividend, BigDecimal price, BigDecimal parValue, StockType stockType){
+    public Stock(String symbol, BigDecimal lastDividend, BigDecimal fixedDividend, BigDecimal price, BigDecimal parValue, StockType stockType) {
         this.symbol = symbol;
         this.lastDividend = lastDividend;
         this.fixedDividend = fixedDividend;
@@ -26,6 +25,10 @@ public class Stock {
 
     public String getSymbol() {
         return symbol;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
     }
 
     public BigDecimal getLastDividend() {
@@ -58,10 +61,6 @@ public class Stock {
 
     public void setStockType(StockType stockType) {
         this.stockType = stockType;
-    }
-
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
     }
 
     public BigDecimal getPrice() {

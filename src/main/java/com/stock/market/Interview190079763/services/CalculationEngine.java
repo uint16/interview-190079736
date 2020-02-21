@@ -17,11 +17,11 @@ public abstract class CalculationEngine {
     protected DataManager dataManager;
 
     @Autowired
-    public CalculationEngine(DataManager dataManager){
+    public CalculationEngine(DataManager dataManager) {
         this.dataManager = dataManager;
     }
 
-    public BigDecimal geometricMean(){
+    public BigDecimal geometricMean() {
 
         var transactions = this.dataManager.getAllTransactions();
         var count = transactions.size();
@@ -29,14 +29,14 @@ public abstract class CalculationEngine {
         var product = transactions.stream().map(Trade::getPrice)
                 .reduce(BigDecimal.ZERO, BigDecimal::multiply);
 
-        return BigDecimal.valueOf(Math.pow(product.doubleValue(), 1/count));
+        return BigDecimal.valueOf(Math.pow(product.doubleValue(), 1 / count));
     }
 
-    public BigDecimal volumeWeighedStockPrice(String ticker){
+    public BigDecimal volumeWeighedStockPrice(String ticker) {
         var transactions = this.dataManager.getTransactionsForStock(ticker);
         var sumOfQuantities = transactions.stream().map(Trade::getQuantity).reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        if(sumOfQuantities == BigDecimal.ZERO) {
+        if (sumOfQuantities == BigDecimal.ZERO) {
             return BigDecimal.ZERO;
         }
         return transactions.stream().map(transaction -> transaction.getPrice()
@@ -44,16 +44,16 @@ public abstract class CalculationEngine {
                 .divide(sumOfQuantities)).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public BigDecimal profitToEarningsRatio(final String ticker, final BigDecimal price){
+    public BigDecimal profitToEarningsRatio(final String ticker, final BigDecimal price) {
         var stock = dataManager.getDataForStock(ticker);
-        if(stock == null) return BigDecimal.ZERO;
+        if (stock == null) return BigDecimal.ZERO;
         var dividends = stock.getLastDividend();
-        if(dividends == BigDecimal.ZERO) {
+        if (dividends == BigDecimal.ZERO) {
             return BigDecimal.ZERO;
         }
         return price.divide(dividends, ApplicationConstants.PRECISION, RoundingMode.CEILING);
     }
 
     public abstract BigDecimal dividendYield(final String stockSymbol, final BigDecimal price) throws StockMarketException;
-    
+
 }

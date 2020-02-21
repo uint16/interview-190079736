@@ -18,7 +18,7 @@ public class PreferredStockCalculationEngine extends CalculationEngine {
     @Override
     public BigDecimal dividendYield(String stockSymbol, BigDecimal price) throws StockMarketException {
         var stock = dataManager.getDataForStock(stockSymbol);
-        if(stock == null || !ValidationUtil.isBigDecimalValid(price)) {
+        if (stock == null || !ValidationUtil.isBigDecimalValid(price)) {
             throw new StockMarketException("Invalid stock/price");
         }
         return (stock.getFixedDividend().multiply(stock.getParValue())).divide(stock.getPrice().multiply(BigDecimal.valueOf(100)), ApplicationConstants.PRECISION, RoundingMode.CEILING);

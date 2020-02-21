@@ -28,26 +28,26 @@ public class CommonStockCalculationEngineTest {
     @Before
     public void init() {
         Stock stock = new Stock("TEST", BigDecimal.valueOf(8),
-                BigDecimal.valueOf(2),BigDecimal.valueOf(25), BigDecimal.valueOf(30), StockType.COMMON);
+                BigDecimal.valueOf(2), BigDecimal.valueOf(25), BigDecimal.valueOf(30), StockType.COMMON);
         when(dataManager.getDataForStock("TEST")).thenReturn(stock);
     }
-    
+
     @Test
     public void testDividendYieldWithValid() throws StockMarketException {
         assertEquals("8.0000", calculationEngine.dividendYield("TEST", BigDecimal.ONE).toString());
     }
 
-    @Test (expected = StockMarketException.class)
+    @Test(expected = StockMarketException.class)
     public void testDividendYieldWithValidStockInvalidPrice() throws StockMarketException {
         calculationEngine.dividendYield("TEST", BigDecimal.ZERO);
     }
 
     @Test
     public void testDividendYieldWithValidStockValidPrice() throws StockMarketException {
-       assertEquals("0.8000", calculationEngine.dividendYield("TEST", BigDecimal.TEN).toString());
+        assertEquals("0.8000", calculationEngine.dividendYield("TEST", BigDecimal.TEN).toString());
     }
 
-    @Test (expected = StockMarketException.class)
+    @Test(expected = StockMarketException.class)
     public void testDividendYieldWithInvalidStockValidPrice() throws StockMarketException {
         calculationEngine.dividendYield("INVALID", BigDecimal.TEN);
     }

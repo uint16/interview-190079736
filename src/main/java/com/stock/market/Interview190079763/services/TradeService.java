@@ -15,7 +15,7 @@ public class TradeService {
     @Autowired
     private DataManager dataManager;
 
-    public void record(String ticker, BigDecimal quantity, BigDecimal price, TradeDirection direction){
+    public void record(String ticker, BigDecimal quantity, BigDecimal price, TradeDirection direction) {
         var tradeRecord = new Trade();
         tradeRecord.setPrice(price);
         tradeRecord.setQuantity(quantity);

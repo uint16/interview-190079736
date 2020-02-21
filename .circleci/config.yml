@@ -3,34 +3,34 @@ version: 2.1
 orbs:
   maven: circleci/maven@0.0.12
 
-jobs: 
-  build: 
-    
-    working_directory: ~/circleci-interview-190079763 
+jobs:
+  build:
+
+    working_directory: ~/circleci-interview-190079763
 
     docker:
-      - image: cimg/openjdk:13.0 
+      - image: cimg/openjdk:13.0
 
-    steps: 
+    steps:
 
-      - checkout 
+      - checkout
       - run: java --version
 
-      - restore_cache: 
+      - restore_cache:
           key: circleci-interview-190079763-{{ checksum "pom.xml" }}
-      
-      - run: mvn dependency:go-offline 
-      
+
+      - run: mvn dependency:go-offline
+
       - save_cache:
           paths:
             - ~/.m2
           key: circleci-interview-190079763-{{ checksum "pom.xml" }}
-      
-      - run: mvn package 
-      
-      - store_test_results: 
+
+      - run: mvn package
+
+      - store_test_results:
           path: target/surefire-reports
-      
+
       - store_artifacts:
-      
+
           path: target/190079763-0.0.1-SNAPSHOT.jar

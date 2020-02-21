@@ -1,6 +1,6 @@
 package com.stock.market.Interview190079763.exception;
 
-public class StockMarketException extends Exception{
+public class StockMarketException extends Exception {
 
     private static final long serialVersionUID = 1L;
 

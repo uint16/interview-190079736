@@ -2,7 +2,6 @@ package com.stock.market.Interview190079763.models;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * Trade
@@ -18,6 +17,10 @@ public class Trade {
 
     public BigDecimal getQuantity() {
         return quantity;
+    }
+
+    public void setQuantity(BigDecimal quantity) {
+        this.quantity = quantity;
     }
 
     public TradeDirection getTradeDirection() {
@@ -42,10 +45,6 @@ public class Trade {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    public void setQuantity(BigDecimal quantity) {
-        this.quantity = quantity;
     }
 
     public Stock getTradedStock() {

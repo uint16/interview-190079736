@@ -27,40 +27,41 @@ public class StockMarketController {
     private TradeService tradeService;
 
     @GetMapping(value = "/dividendYield/{stockSymbol}")
-    public BigDecimal getDividendYield(@PathVariable String stockSymbol, @RequestParam StockType stockType, @RequestParam(required = true) double price) throws StockMarketException {
+    public BigDecimal getDividendYield(@PathVariable String stockSymbol, @RequestParam StockType stockType, @RequestParam(required = true) BigDecimal price) throws StockMarketException {
         logger.info("Requested Dividend Yield for Stock " + stockSymbol + " for price " + price);
-        if(stockType == StockType.COMMON){
-            return commonStockCalculationEngine.dividendYield(stockSymbol, BigDecimal.valueOf(price));
-        } else if(stockType == StockType.PREFERRED){
-            return preferredStockCalculationEngine.dividendYield(stockSymbol, BigDecimal.valueOf(price));
+
+        if (stockType == StockType.COMMON) {
+            return commonStockCalculationEngine.dividendYield(stockSymbol, price);
+        } else if (stockType == StockType.PREFERRED) {
+            return preferredStockCalculationEngine.dividendYield(stockSymbol, price);
         }
 
         return BigDecimal.ZERO;
     }
 
     @GetMapping(value = "/profitToEarningRatio")
-    public BigDecimal getProfitToEarningRatio(@RequestParam String stockSymbol,  @RequestParam(required = true) BigDecimal price){
+    public BigDecimal getProfitToEarningRatio(@RequestParam String stockSymbol, @RequestParam(required = true) BigDecimal price) {
 
         return commonStockCalculationEngine.profitToEarningsRatio(stockSymbol, price);
     }
 
     @GetMapping(value = "/trade")
-    public HttpStatus tradeStock(@RequestParam String stockSymbol, @RequestParam TradeDirection tradeDirection, @RequestParam(required = true) BigDecimal price, @RequestParam BigDecimal quantity){
-        tradeService.record(stockSymbol,quantity,price,tradeDirection);
+    public HttpStatus tradeStock(@RequestParam String stockSymbol, @RequestParam TradeDirection tradeDirection, @RequestParam(required = true) BigDecimal price, @RequestParam BigDecimal quantity) {
+        tradeService.record(stockSymbol, quantity, price, tradeDirection);
 
         return HttpStatus.OK;
     }
 
     @GetMapping(value = "/geometricMean")
-    public HttpStatus getGeometricMean(@RequestParam String stockSymbol, @RequestParam TradeDirection tradeDirection, @RequestParam(required = true) BigDecimal price, @RequestParam BigDecimal quantity){
-        tradeService.record(stockSymbol,quantity,price,tradeDirection);
+    public HttpStatus getGeometricMean(@RequestParam String stockSymbol, @RequestParam TradeDirection tradeDirection, @RequestParam(required = true) BigDecimal price, @RequestParam BigDecimal quantity) {
+        tradeService.record(stockSymbol, quantity, price, tradeDirection);
 
         return HttpStatus.OK;
     }
 
     @GetMapping(value = "/volumeWeightedStockPrice")
-    public HttpStatus getVolumeWeightedStockPrice(@RequestParam String stockSymbol, @RequestParam TradeDirection tradeDirection, @RequestParam(required = true) BigDecimal price, @RequestParam BigDecimal quantity){
-        tradeService.record(stockSymbol,quantity,price,tradeDirection);
+    public HttpStatus getVolumeWeightedStockPrice(@RequestParam String stockSymbol, @RequestParam TradeDirection tradeDirection, @RequestParam(required = true) BigDecimal price, @RequestParam BigDecimal quantity) {
+        tradeService.record(stockSymbol, quantity, price, tradeDirection);
 
         return HttpStatus.OK;
     }

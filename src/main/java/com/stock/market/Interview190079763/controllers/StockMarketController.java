@@ -47,8 +47,7 @@ public class StockMarketController {
 
     @GetMapping(value = "/trade")
     public HttpStatus tradeStock(@RequestParam String ticker, @RequestParam TradeDirection tradeDirection, @RequestParam(required = true) BigDecimal price, @RequestParam BigDecimal quantity) {
-        tradeService.record(ticker, quantity, price, tradeDirection);
-
+        tradeService.recordTrade(ticker, quantity, price, tradeDirection);
         return HttpStatus.OK;
     }
 

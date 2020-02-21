@@ -20,10 +20,10 @@ import static org.mockito.Mockito.when;
 public class PreferredStockCalculationEngineTest {
 
     @InjectMocks
-    PreferredStockCalculationEngine calculationEngine;
+    private PreferredStockCalculationEngine calculationEngine;
 
     @Mock
-    DataManager dataManager;
+    private DataManager dataManager;
 
     @Before
     public void init() {
